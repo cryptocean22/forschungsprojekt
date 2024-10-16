@@ -1,2 +1,4 @@
-# forschungsprojekt
-OWELK (Opnsense, Wazuh, Elasticsearch, Logstash, Kibana)
+# MCSM 305 - Forschungsprojekt - WELK 
+
+
+
