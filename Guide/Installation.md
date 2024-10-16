@@ -27,3 +27,16 @@ sudo apt-get update && sudo apt-get install elasticsearch
 sudo apt-get update && sudo apt-get install kibana
 ```
 
+---
+
+### Step 4 - Starting Elasticsearch for the first time 
+- Make changes to the YAML and start elasticsearch: `sudo systemctl start elasticsearch`
+
+---
+
+### Step 5 - Configure Kibana 
+- Make changes to the YAML
+- Restart elasticsearch
+- Start kibana 
+
+
