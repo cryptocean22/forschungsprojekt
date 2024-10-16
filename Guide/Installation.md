@@ -30,13 +30,84 @@ sudo apt-get update && sudo apt-get install kibana
 ---
 
 ### Step 4 - Starting Elasticsearch for the first time 
-- Make changes to the YAML and start elasticsearch: `sudo systemctl start elasticsearch`
+- Make changes to the YAML (see below) and start elasticsearch: `sudo systemctl start elasticsearch`
+
+
+```
+YAML ohne SSL 
+```
 
 ---
 
-### Step 5 - Configure Kibana 
-- Make changes to the YAML
+### Step 5 - Certificate Deployment 
+- Install certificates:
+
+```bash
+cd /etc/elasticsearch/certs/
+/usr/share/elasticsearch/bin/elasticsearch-certutil ca --pem --out /etc/elasticsearch/certs/ca.zip
+unzip ca.zip
+/usr/share/elasticsearch/bin/elasticsearch-certutil cert --out /etc/elasticsearch/certs/elastic.zip --name elastic --ca-cert /etc/elasticsearch/certs/ca/ca.crt --ca-key /etc/elasticsearch/certs/ca/ca.key --ip 192.168.100.10 --pem
+cd /etc/elasticsearch/certs/
+unzip elastic.zip
+chown -R elasticsearch:elasticsearch .
+sudo systemctl daemon-reload
+```
+
+
+---
+
+### Step 6 - Make Changes to the Elasticsearch YAML 
+- Make changes to the elasticsearch YAML 
+
+```
+YAML mit SSL 
+```
+
 - Restart elasticsearch
-- Start kibana 
+
+---
+
+### Step 7 - Certificate Deployment for Kibana 
+```bash
+cd /etc/kibana
+mkdir certs/
+cd certs/
+mkdir elastic
+/usr/share/elasticsearch/bin/elasticsearch-certutil cert --out /etc/kibana/certs/kibana.zip --name kibana --ca-cert /etc/elasticsearch/certs/ca/ca.crt --ca-key /etc/elasticsearch/certs/ca/ca.key --ip 192.168.100.10 --pem
+unzip kibana.zip
+cp /etc/elasticsearch/certs/ca/* /etc/kibana/certs/elastic/
+cd /etc/elasticsearch/
+chown -R elasticsearch:elasticsearch .
+cd /etc/kibana/
+chown -R kibana:kibana ./
+```
+
+---
+
+### Step 8 - Kibana Keystore
+
+```bash
+/usr/share/elasticsearch/bin/elasticsearch-service-tokens create elastic/kibana kibana_token
+cd /etc/elasticsearch/
+chown -R elasticsearch:elasticsearch service_tokens
+
+/usr/share/kibana/bin/kibana-keystore add elasticsearch.serviceAccountToken
+cd /etc/kibana/ 
+chown -R kibana:kibana ./
+```
+
+---
+
+### Step 9 - Configure Kibana 
+- Make changes to the YAML (see below) 
+
+```
+
+```
+- Start Kibana
+
+---
+
+
 
 
