@@ -82,10 +82,13 @@ certificate_authorities: /etc/elasticsearch/certs/ca/ca.crt
 - Visit elasticsearch via the browser again: https://192.168.1.42:9200 (replace with the server's IP-Address)
 - And check the ssl-certificate. It should be deployed now. 
 
-
 ---
 
 ### Step 7 - Certificate Deployment for Kibana 
+- Now that elasticsearch is up and running, we will repeat this process for kibana.
+- First, stop elasticsearch: `sudo systemctl stop elasticsearch`
+- Then, run the following commands (**replace the IP with the IP of your server**):
+ 
 ```bash
 cd /etc/kibana
 mkdir certs/
@@ -103,6 +106,7 @@ chown -R kibana:kibana ./
 ---
 
 ### Step 8 - Kibana Keystore
+- Now we create the kibana keystore for secure authentication between elasticsearch and kibana (SAVE THE TOKEN):
 
 ```bash
 /usr/share/elasticsearch/bin/elasticsearch-service-tokens create elastic/kibana kibana_token
@@ -117,12 +121,25 @@ chown -R kibana:kibana ./
 ---
 
 ### Step 9 - Configure Kibana 
-- Make changes to the YAML (see below) 
+- The kibana configuration files are located at: `/etc/kibana/`
+- Add the following fields to the `kibana.yml`
 
 ```
+server.port: 5601
+server.host: "0.0.0.0"
+server.publicBaseUrl: "https://192.168.1.42:5601"
 
+server.ssl.enabled: true
+server.ssl.certificateAuthorities: ["/etc/kibana/certs/elastic/ca.crt"]
+server.ssl.certificate: /etc/kibana/certs/kibana/kibana.crt
+server.ssl.key: /etc/kibana/certs/kibana/kibana.key
+elasticsearch.hosts: ["https://192.168.1.42:9200"]
+
+elasticsearch.ssl.certificateAuthorities: [ "/etc/kibana/certs/elastic/ca.crt" ]
+elasticsearch.ssl.verificationMode: full
 ```
-- Start Kibana
+- Start elasticsearch: `sudo systemctl start elasticsearch`
+- Start kibana: `sudo systemctl start kibana`
 
 ---
 
