@@ -124,7 +124,7 @@ chown -R kibana:kibana ./
 - The kibana configuration files are located at: `/etc/kibana/`
 - Add the following fields to the `kibana.yml`
 
-```
+```YAML
 server.port: 5601
 server.host: "0.0.0.0"
 server.publicBaseUrl: "https://192.168.1.42:5601"
