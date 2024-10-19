@@ -205,3 +205,6 @@ xpack.encryptedSavedObjects.encryptionKey: 26b693e4a6bde560069207dabe49a865
 xpack.reporting.encryptionKey: 409f2b25ec999c70dcc64a441a1436ec
 xpack.security.encryptionKey: 0784cd5158afe89ec71e684972625062
 ```
+
+- Then we restart kibana: `systemctl restart kibana`
+- Both Elasticsearch and Kibana are now ready to use. The installation is complete.
