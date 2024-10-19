@@ -48,79 +48,51 @@ mkdir logs
 ## Step 1 - Installing Logstash 
 
 ```bash
+cd /etc/
+mkdir /etc/sysconfig
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic-keyring.gpg
 sudo apt-get install apt-transport-https
 echo "deb [signed-by=/usr/share/keyrings/elastic-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
 sudo apt-get update && sudo apt-get install logstash
+cd /etc/logstash/
+mkdir certs
 ```
 
 ---
 
 ## Step 2 - Configuring Logstash
+- Copy the Elasticsearch CA to the following directory and set the following privileges: `chmod -R 755 CA.crt` and change the ownership: `chown logstash:logstash CA.crt` (as well as the folder where it lies `chown logstash:logstash /etc/logstash/certs`)
+- Then execute the following commands:
 
 ```bash
-/usr/share/logstash/bin/logstash-plugin install logstash-output-elasticsearch
-cd /etc/logstash/
-mkdir certs
-cd certs/
-cp elastic-ca.crt /etc/logstash/certs/ 
+sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-elasticsearch
 sudo chmod -R 755 /etc/logstash/certs/elastic-ca.crt
+sudo mkdir /etc/logstash/templates
 sudo curl -o /etc/logstash/templates/wazuh.json https://packages.wazuh.com/integrations/elastic/4.x-8.x/dashboards/wz-es-4.x-8.x-template.json
-mkdir /etc/sysconfig; touch /etc/sysconfig/logstash
-set +o history
-echo 'LOGSTASH_KEYSTORE_PASS="test#1233"'| sudo tee /etc/sysconfig/logstash LOGSTASH_KEYSTORE_PASS="test#123"
-export LOGSTASH_KEYSTORE_PASS=test#123
-set -o history
+echo 'LOGSTASH_KEYSTORE_PASS="k3txcvSJGNsdjfkn#asd#"'| sudo tee /etc/sysconfig/logstash
+export LOGSTASH_KEYSTORE_PASS=k3txcvSJGNsdjfkn#asd#
 sudo chown root /etc/sysconfig/logstash
 sudo chmod 600 /etc/sysconfig/logstash
 sudo systemctl start logstash
+```
 
+- In the next step you type in your elasticsearch username and elasticsearch password
+```bash
 sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash create
 sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash add ELASTICSEARCH_USERNAME
 sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash add ELASTICSEARCH_PASSWORD
-
-sudo touch /etc/logstash/conf.d/wazuh-elasticsearch.conf
-sudo touch /etc/logstash/conf.d/wazuh-elasticsearch.conf
 ```
 
-- Logstash Config file: 
-```CONFIG
-input {
-  file {
-    id => "wazuh_alerts"
-    codec => "json"
-    start_position => "beginning"
-    stat_interval => "1 second"
-    path => "/var/ossec/logs/alerts/alerts.json"
-    mode => "tail"
-    ecs_compatibility => "disabled"
-  }
-}
-
-output {
-    elasticsearch {
-         hosts => "https://192.168.1.42:9200"
-         index  => "wazuh-alerts-4.x-%{+YYYY.MM.dd}"
-         user => '${ELASTICSEARCH_USERNAME}'
-         password => '${ELASTICSEARCH_PASSWORD}'
-         ssl => true
-         cacert => "/etc/logstash/certs/elastic-ca.crt"
-         template => "/etc/logstash/templates/wazuh.json"
-         template_name => "wazuh"
-         template_overwrite => true
-    }
-}
-```
-
-- Starting Logstash:
+- You then proceed with the following commands:
 
 ```bash
+sudo touch /etc/logstash/conf.d/wazuh-elasticsearch.conf
 sudo systemctl stop logstash
-sudo ufw allow 55000
-sudo -E /usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/wazuh-elasticsearch.conf --path.settings /etc/logstash/
 sudo systemctl enable logstash.service
 sudo systemctl start logstash.service
 ```
+
+---
 
 ---
 
