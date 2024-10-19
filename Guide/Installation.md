@@ -201,8 +201,7 @@ sudo ./elastic-agent install --url=https://192.168.1.42:8220 \
 - We will paste these encryption keys into the `kibana.yml`
 
 ```YAML
-xpack.encryptedSavedObjects:
-  xpack.encryptedSavedObjects.encryptionKey: 26b693e4a6bde560069207dabe49a865
-  xpack.reporting.encryptionKey: 409f2b25ec999c70dcc64a441a1436ec
-  xpack.security.encryptionKey: 0784cd5158afe89ec71e684972625062
+xpack.encryptedSavedObjects.encryptionKey: 26b693e4a6bde560069207dabe49a865
+xpack.reporting.encryptionKey: 409f2b25ec999c70dcc64a441a1436ec
+xpack.security.encryptionKey: 0784cd5158afe89ec71e684972625062
 ```
