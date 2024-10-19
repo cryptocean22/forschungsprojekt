@@ -25,7 +25,7 @@ docker-compose -f generate-indexer-certs.yml run --rm generator
 docker-compose up -d
 ```
 
-- After the installation we can access the dashboard at: https://127.0.0.1:443
+- After the installation we can access the dashboard at: https://127.0.0.1:443 (the IP-Address of the server on port 443) 
 
 ---
 
