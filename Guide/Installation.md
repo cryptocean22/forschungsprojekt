@@ -186,10 +186,10 @@ sudo ./elastic-agent install --url=https://192.168.1.42:8220 \
   --fleet-server-es=https://192.168.1.42:9200 \
   --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE3MjkzMjU4NDM3NTk6S1k3TTg2U2tUNzJWUTdGMGI2bjQ3UQ \
   --fleet-server-policy=fleet-server-policy \
-  --certificate-authorities=<PATH_TO_CA> \
-  --fleet-server-es-ca=<PATH_TO_ES_CERT> \
-  --fleet-server-cert=<PATH_TO_FLEET_SERVER_CERT> \
-  --fleet-server-cert-key=<PATH_TO_FLEET_SERVER_CERT_KEY> \
+  --certificate-authorities=/etc/certs/elastic/ca.crt \
+  --fleet-server-es-ca=/etc/certs/elastic/ca.crt \
+  --fleet-server-cert=/etc/certs/fleet/fleet.crt \
+  --fleet-server-cert-key=/etc/certs/fleet/fleet.key \
   --fleet-server-port=8220
 ```
 
