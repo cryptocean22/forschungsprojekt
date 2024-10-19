@@ -1,4 +1,29 @@
-# Installation of WELK
+# Installation of Wazuh 
+## Step 1 - Preparation
+- Zunächst wird das System aktualisiert und Docker installiert.
+
+```bash
+apt update; sudo apt upgrade -y
+sysctl -w vm.max_map_count=262144
+apt install docker
+apt install docker-compose
+systemctl start docker
+```
+
+---
+
+## Step 2 - Installation of Wazuh 
+```bash
+cd /opt/
+git clone https://github.com/wazuh/wazuh-docker.git -b v4.9.1
+cd wazuh-docker/single-node/
+docker-compose -f generate-indexer-certs.yml run --rm generator
+docker-compose up -d
+```
+
+---
+
+# Installation of ELK
 ## Installing and Configuring Elasticsearch and Kbiana
 ### Step 1 - Preparation
 - First, we need to prepare the system for the deployment of the elastic stack:
