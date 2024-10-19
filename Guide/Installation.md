@@ -1,10 +1,12 @@
-# Installation of Wazuh 
+# 1. Installation of Wazuh 
 ## Step 1 - Preparation
-- Zunächst wird das System aktualisiert und Docker installiert.
+- Zunächst wird das System aktualisiert und auf den Betrieb von Docker vorbereitet:
+- Folgende Datei wird zunächst bearbeitet: `nano /etc/sysctl.conf`
+- Anschließend wird folgendes hinzugefügt: `vm.max_map_count=262144`
+- Die Datei wird gespeichert und geschlossen. Die folgenden Befehle werden ausgeführt:
 
 ```bash
 apt update; sudo apt upgrade -y
-sysctl -w vm.max_map_count=262144
 apt install docker
 apt install docker-compose
 systemctl start docker
@@ -23,7 +25,7 @@ docker-compose up -d
 
 ---
 
-# Installation of ELK
+# 2. Installation of Elasticsearch and Kibana
 ## Installing and Configuring Elasticsearch and Kbiana
 ### Step 1 - Preparation
 - First, we need to prepare the system for the deployment of the elastic stack:
