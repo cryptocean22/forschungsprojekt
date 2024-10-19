@@ -143,6 +143,66 @@ elasticsearch.ssl.verificationMode: full
 
 ---
 
+### Step 10 - Installing the Fleet Server
 
+- First we need to create new SSL-Certificates for the Fleet-Server:
 
+```bash
+cd /etc/
+mkdir certs/
+cd certs/
+mkdir elastic/ 
+cp /etc/elasticsearch/certs/ca/ca.crt elastic/
+/usr/share/elasticsearch/bin/elasticsearch-certutil cert --out /etc/certs/fleet.zip --name fleet --ca-cert /etc/elasticsearch/certs/ca/ca.crt --ca-key /etc/elasticsearch/certs/ca/ca.key --ip 192.168.0.87 --pem
+cd /etc/certs/
+unzip fleet.zip
+```
 
+- Then, follow the next steps:
+
+1. Go to the Kibana Dashboard -> Open Menu -> Fleet -> Settings -> Outputs -> Edit
+2. Change Hosts: `https://192.168.0.87:9200`
+3. Advanced YAML Configuration: `ssl.certificate_authorities: ["/etc/certs/elastic/ca.crt"]`
+4. Save and apply settings
+5. Go to Agents
+6. Click on _Add Fleet Server_ -> _Advanced_ -> _Create policy_ -> _Production_ -> Name: fleet -> URL: https://192.168.178.128:8220 -> Add host -> Generate Service Token
+7. We then get a command and we save it
+
+- We then run the following commands:
+
+```bash
+cd /root/ 
+touch install.sh 
+chmod 755 install.sh 
+```
+
+- We then open this new file with `nano install.sh` and paste the command: 
+
+```bash
+curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.15.3-linux-x86_64.tar.gz
+tar xzvf elastic-agent-8.15.3-linux-x86_64.tar.gz
+cd elastic-agent-8.15.3-linux-x86_64
+sudo ./elastic-agent install --url=https://192.168.1.42:8220 \
+  --fleet-server-es=https://192.168.1.42:9200 \
+  --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE3MjkzMjU4NDM3NTk6S1k3TTg2U2tUNzJWUTdGMGI2bjQ3UQ \
+  --fleet-server-policy=fleet-server-policy \
+  --certificate-authorities=<PATH_TO_CA> \
+  --fleet-server-es-ca=<PATH_TO_ES_CERT> \
+  --fleet-server-cert=<PATH_TO_FLEET_SERVER_CERT> \
+  --fleet-server-cert-key=<PATH_TO_FLEET_SERVER_CERT_KEY> \
+  --fleet-server-port=8220
+```
+
+---
+
+### Step 11 
+- Now we will install the kibana encrytion keys: `/usr/share/kibana/bin/kibana-encryption-keys`
+- We will get an output in the terminal.
+- We will paste these encryption keys into the `kibana.yml`
+
+```YAML
+xpack.encryptedSavedObjects:
+  xpack.encryptedSavedObjects.encryptionKey: 26b693e4a6bde560069207dabe49a865
+  xpack.reporting.encryptionKey: 409f2b25ec999c70dcc64a441a1436ec
+  xpack.security.encryptionKey: 0784cd5158afe89ec71e684972625062
+```
