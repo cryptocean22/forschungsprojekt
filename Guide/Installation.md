@@ -15,6 +15,8 @@ systemctl start docker
 ---
 
 ## Step 2 - Installation of Wazuh 
+- We now install Wazuh:
+ 
 ```bash
 cd /opt/
 git clone https://github.com/wazuh/wazuh-docker.git -b v4.9.1
@@ -22,6 +24,8 @@ cd wazuh-docker/single-node/
 docker-compose -f generate-indexer-certs.yml run --rm generator
 docker-compose up -d
 ```
+
+- After the installation we can access the dashboard at: https://127.0.0.1:443
 
 ---
 
