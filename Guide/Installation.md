@@ -25,9 +25,27 @@ docker-compose -f generate-indexer-certs.yml run --rm generator
 docker-compose up -d
 ```
 
+- After the installation we can access the dashboard at: https://127.0.0.1:443 (the IP-Address of the server on port 443)
+
 ---
 
-## Step 3 - Installing Logstash 
+## Step 3 - Creating Cronjobs for Log-Saving of Wazuh
+
+```bash
+apt install cron
+systemctl enable cron
+systemctl start cron
+cd /root/
+mkdir logs
+```
+
+- Folgenden Befehl eingeben: `crontab -e`
+- Folgendes in crontab hinzufügen: `*/5 * * * * docker cp single-node_wazuh.manager_1:/var/ossec/logs/alerts/alerts.json /root/logs/`
+- Danach: `systemctl restart cron`
+
+---
+# 2. Installation of Logstash
+## Step 1 - Installing Logstash 
 
 ```bash
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elastic-keyring.gpg
@@ -38,7 +56,7 @@ sudo apt-get update && sudo apt-get install logstash
 
 ---
 
-## Step 4 - Configuring Logstash
+## Step 2 - Configuring Logstash
 
 ```bash
 /usr/share/logstash/bin/logstash-plugin install logstash-output-elasticsearch
@@ -103,8 +121,6 @@ sudo -E /usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/wazuh-elasticse
 sudo systemctl enable logstash.service
 sudo systemctl start logstash.service
 ```
-
-- After the installation we can access the dashboard at: https://127.0.0.1:443 (the IP-Address of the server on port 443) 
 
 ---
 
