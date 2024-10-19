@@ -3,9 +3,9 @@ Dies ist das offizielle Repository für das Forschungsprojekt MCSM 305. Dieses P
 
 | Tool | Beschreibung |
 | ----------- | ----------- |
-| Elasticsearch | Eine verteilte Such- und Analyse-Engine zur Speicherung und schnellen Abfrage großer Datenmengen.     |
-| Logstash      | Ein Datenverarbeitungs-Pipeline-Tool, das Logs und andere Datenquellen sammelt, verarbeitet und an verschiedene Ausgaben sendet, oft an Elasticsearch. |
-| Kibana        | Ein Visualisierungstool für Elasticsearch, das Dashboards erstellt und Daten in Echtzeit visualisiert. | 
-| Wazuh         | Eine Open-Source-Plattform für Sicherheitserkennung, -überwachung und -reaktion, die Log-Analyse, Bedrohungserkennung und Integritätsprüfung bietet. |
-| Opnsense      | Eine Open-Source-Firewall- und Routing-Plattform, die Sicherheitsfunktionen wie VPN, IDS/IPS und Webfilter bietet. |
+| [Elasticsearch](https://www.elastic.co/de/elasticsearch) | Eine verteilte Such- und Analyse-Engine zur Speicherung und schnellen Abfrage großer Datenmengen.     |
+| [Logstash](https://www.elastic.co/de/logstash)      | Ein Datenverarbeitungs-Pipeline-Tool, das Logs und andere Datenquellen sammelt, verarbeitet und an verschiedene Ausgaben sendet, oft an Elasticsearch. |
+| [Kibana](https://www.elastic.co/de/kibana)        | Ein Visualisierungstool für Elasticsearch, das Dashboards erstellt und Daten in Echtzeit visualisiert. | 
+| [Wazuh](https://wazuh.com/)         | Eine Open-Source-Plattform für Sicherheitserkennung, -überwachung und -reaktion, die Log-Analyse, Bedrohungserkennung und Integritätsprüfung bietet. |
+| [Opnsense](https://opnsense.org/)      | Eine Open-Source-Firewall- und Routing-Plattform, die Sicherheitsfunktionen wie VPN, IDS/IPS und Webfilter bietet. |
 
