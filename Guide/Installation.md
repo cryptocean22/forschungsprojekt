@@ -106,7 +106,7 @@ sudo systemctl start logstash.service
 
 ---
 
-# 2. Installation of Elasticsearch and Kibana
+# 3. Installation of Elasticsearch and Kibana
 ## Installing and Configuring Elasticsearch and Kbiana
 ### Step 1 - Preparation
 - First, we need to prepare the system for the deployment of the elastic stack:
