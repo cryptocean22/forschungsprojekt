@@ -12,6 +12,16 @@ apt install docker-compose
 systemctl start docker
 ```
 
+- Configure the firewall: 
+```bash
+apt install ufw
+ufw enable
+ufw allow 1514
+ufw allow 1515
+ufw allow 1515
+ufw allow 55000
+```
+
 ---
 
 ## Step 2 - Installation of Wazuh 
