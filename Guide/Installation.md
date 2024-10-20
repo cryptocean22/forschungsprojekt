@@ -104,8 +104,6 @@ sudo systemctl start logstash.service
 
 ---
 
----
-
 # 3. Installation of Elasticsearch and Kibana
 ## Installing and Configuring Elasticsearch and Kbiana
 ### Step 1 - Preparation
