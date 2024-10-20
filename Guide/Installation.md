@@ -190,7 +190,7 @@ certificate_authorities: /etc/elasticsearch/certs/ca/ca.crt
 
 ---
 
-### Step 7 - Certificate Deployment for Kibana 
+### Step 6 - Certificate Deployment for Kibana 
 - Now that elasticsearch is up and running, we will repeat this process for kibana.
 - First, stop elasticsearch: `sudo systemctl stop elasticsearch`
 - Then, run the following commands (**replace the IP with the IP of your server**):
@@ -211,7 +211,7 @@ chown -R kibana:kibana ./
 
 ---
 
-### Step 8 - Kibana Keystore
+### Step 7 - Kibana Keystore
 - Now we create the kibana keystore for secure authentication between elasticsearch and kibana (SAVE THE TOKEN):
 
 ```bash
@@ -226,7 +226,7 @@ chown -R kibana:kibana ./
 
 ---
 
-### Step 9 - Configure Kibana 
+### Step 8 - Configure Kibana 
 - The kibana configuration files are located at: `/etc/kibana/`
 - Add the following fields to the `kibana.yml`
 
@@ -249,7 +249,7 @@ elasticsearch.ssl.verificationMode: full
 
 ---
 
-### Step 10 - Installing the Fleet Server
+### Step 9 - Installing the Fleet Server
 
 - First we need to create new SSL-Certificates for the Fleet-Server:
 
@@ -301,7 +301,7 @@ sudo ./elastic-agent install --url=https://192.168.1.42:8220 \
 
 ---
 
-### Step 11 
+### Step 10 
 - Now we will install the kibana encrytion keys: `/usr/share/kibana/bin/kibana-encryption-keys`
 - We will get an output in the terminal.
 - We will paste these encryption keys into the `kibana.yml`
