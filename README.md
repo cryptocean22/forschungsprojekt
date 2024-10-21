@@ -1,5 +1,5 @@
-# MCSM 305 - Forschungsprojekt - WELK 
-Dies ist das offizielle Repository für das Forschungsprojekt MCSM 305. Dieses Projekt beschäftigt sich mit der Implementierung eines ganzheitlichen Netzwerküberwachungs-Tools unter Verwendung verschiedener Sicherheitstechnologien, damit Kleinstunternehmen ihr Netzwerk mit möglichst wenig Aufwand und geringen Kosten überwachen können. Die verwendeten Sicherheitstechnologien sind: 
+# Forschungsprojekt - WELK 
+Dies ist das offizielle Repository für das Forschungsprojekt im Rahmen des Masterstudiengangs. Dieses Projekt beschäftigt sich mit der Implementierung eines ganzheitlichen Netzwerküberwachungs-Tools unter Verwendung verschiedener Sicherheitstechnologien, damit Kleinstunternehmen ihr Netzwerk mit möglichst wenig Aufwand und geringen Kosten überwachen können. Die verwendeten Sicherheitstechnologien sind: 
 
 | Tool | Beschreibung |
 | ----------- | ----------- |
