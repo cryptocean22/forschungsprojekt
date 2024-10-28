@@ -1,5 +1,13 @@
-# 1. Installation of Wazuh 
-## Step 1 - Preparation
+# Optional: Installation von Opnsense
+- Opnsense ist eine Open-Source Firewall
+- Die Installationsdatei kann über die offizielle [Opnsense-Seite](https://opnsense.org/download/) heruntergeladen werden
+
+## Schritt 1 - 
+
+---
+
+# 1. Installation von Wazuh 
+## Step 1 - Vorbereitung
 - Zunächst wird das System aktualisiert und auf den Betrieb von Docker vorbereitet:
 - Folgende Datei wird zunächst bearbeitet: `nano /etc/sysctl.conf`
 - Anschließend wird folgendes hinzugefügt: `vm.max_map_count=262144`
@@ -12,7 +20,7 @@ apt install docker-compose
 systemctl start docker
 ```
 
-- Configure the firewall: 
+- Anschließend wird die Firewall konfiguriert: 
 ```bash
 apt install ufw
 ufw enable
@@ -24,8 +32,8 @@ ufw allow 55000
 
 ---
 
-## Step 2 - Installation of Wazuh 
-- We now install Wazuh:
+## Schritt 2 - Installation von Wazuh 
+- Jetzt installieren wir Wazuh:
  
 ```bash
 cd /opt/
@@ -35,11 +43,11 @@ docker-compose -f generate-indexer-certs.yml run --rm generator
 docker-compose up -d
 ```
 
-- After the installation we can access the dashboard at: https://127.0.0.1:443 (the IP-Address of the server on port 443)
+- Nach der Installation können wir auf das Dashboard zugreifen unter: https://127.0.0.1:443 (die IP-Adresse des Servers auf Port 443)
 
 ---
 
-## Step 3 - Creating Cronjobs for Log-Saving of Wazuh
+## Schritt 3 - Cronjobs für Log-Forwarding an Wazuh 
 
 ```bash
 apt install cron
@@ -55,7 +63,7 @@ mkdir logs
 
 ---
 # 2. Installation of Logstash
-## Step 1 - Installing Logstash 
+## Schritt 1 - Logstash installieren
 
 ```bash
 cd /etc/
@@ -70,9 +78,9 @@ mkdir certs
 
 ---
 
-## Step 2 - Configuring Logstash
-- Copy the Elasticsearch CA to the following directory and set the following privileges: `chmod -R 755 CA.crt` and change the ownership: `chown logstash:logstash CA.crt` (as well as the folder where it lies `chown logstash:logstash /etc/logstash/certs`)
-- Then execute the following commands:
+## Schritt 2 - Konfiguration von Logstash 
+- Jetzt kopieren wir die Elasticsearch-CA in das folgende Verzeichnis und setzen die folgenden Berechtigungen: `chmod -R 755 CA.crt` und ändern die Berechtigungen: `chown logstash:logstash CA.crt` (sowie den Ordner, in dem sich die Datei befindet `chown logstash:logstash /etc/logstash/certs`)
+- Wir führen dann die folgenden Befehle aus:
 
 ```bash
 sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-elasticsearch
@@ -86,14 +94,15 @@ sudo chmod 600 /etc/sysconfig/logstash
 sudo systemctl start logstash
 ```
 
-- In the next step you type in your elasticsearch username and elasticsearch password
+- Im nächsten Schritt geben wir den elasticsearch-Benutzernamen und das elasticsearch-Passwort ein:
+
 ```bash
 sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash create
 sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash add ELASTICSEARCH_USERNAME
 sudo -E /usr/share/logstash/bin/logstash-keystore --path.settings /etc/logstash add ELASTICSEARCH_PASSWORD
 ```
 
-- You then proceed with the following commands:
+- Dann fahren wir mit den folgenden Befehlen fort:
 
 ```bash
 sudo touch /etc/logstash/conf.d/wazuh-elasticsearch.conf
@@ -104,10 +113,10 @@ sudo systemctl start logstash.service
 
 ---
 
-# 3. Installation of Elasticsearch and Kibana
-## Installing and Configuring Elasticsearch and Kbiana
-### Step 1 - Preparation
-- First, we need to prepare the system for the deployment of the elastic stack:
+# 3. Installation von Elasticsearch and Kibana
+## Installation und Konfiguration von Elasticsearch and Kbiana
+### Schritt 1 - Vorbereitung
+- Zunächst müssen wir das System für den Einsatz des Elastic Stack vorbereiten:
 
 ```bash
 sudo apt update; sudo apt upgrade -y
@@ -119,8 +128,8 @@ echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://arti
 
 ---
 
-### Step 2 - Firewall Configuration
-- Now we open the necessary ports on the server that are required for the Elastic Stack to work properly
+### Schritt 2 - Firewall Konfiguration
+- Nun öffnen wir die notwendigen Ports auf dem Server, die für die korrekte Funktion des Elastic Stack erforderlich sind:
 
 ```bash
 ufw enable
@@ -131,9 +140,9 @@ ufw allow 8220
 
 ---
 
-### Step 3 - Installation of Elasticsearch and Kibana
-- Now we install both elasticsearch and kibana
-- **IMPORTANT:** Once elasticsearch has been installed, the terminal will display the **credentials** for the elasticsearch user. Save them! 
+### Schritt 3 - Installation von Elasticsearch und Kibana
+- Jetzt installieren wir sowohl elasticsearch als auch kibana
+- **WICHTIG:** Sobald elasticsearch installiert ist, zeigt das Terminal die **Zugangsdaten** für den elasticsearch-Benutzer an. Speicher diese! 
 
 ```bash
 sudo apt-get update && sudo apt-get install elasticsearch
@@ -142,11 +151,11 @@ sudo apt-get update && sudo apt-get install kibana
 
 ---
 
-### Step 4 - Starting Elasticsearch for the first time 
-- Now we need to configure Elasticsearch
-- The Elasticsearch configuration files are located at `/etc/elasticsearch/`
-- We need to configure the following file: `elasticsearch.yml`
-- Add the following fields to your configuration file (**IMPORTANT:** replace the IP address with the IP address of your server):
+### Schritt 4 - Elasticsearch zum ersten Mal starten 
+- Jetzt müssen wir Elasticsearch konfigurieren
+- Die Elasticsearch-Konfigurationsdateien befinden sich unter `/etc/elasticsearch/`
+- Wir müssen die folgende Datei konfigurieren: `elasticsearch.yml`
+- Füge die folgenden Felder zu der Konfigurationsdatei hinzu (**WICHTIG:** ersetze die IP-Adresse durch die IP-Adresse des Servers):
 
 ```YAML
 cluster.name: ELK
@@ -154,17 +163,17 @@ network.host: 192.168.1.42
 http.port: 9200
 ```
 
-- After making the changes and saving the file, start elasticsearch: `sudo systemctl start elasticsearch`
-- Check the availability of elasticsearch by visiting: https://192.168.1.42:9200 (replace with the server's IP-Address)
-- Ignore the warning and continue
-- Enter your elastic user credentials (they have been automatically generated earlier. See Step 4) 
+- Nachdem wir die Änderungen vorgenommen und die Datei gespeichert haben, starten wir elasticsearch: `sudo systemctl start elasticsearch`.
+- Überprüfe die Verfügbarkeit von elasticsearch unter: https://192.168.1.42:9200 (ersetze diese durch die IP-Adresse des Servers)
+- Ignoriere die Warnung und fahre fort
+- Gib die elastic-Benutzerdaten ein (sie wurden zuvor automatisch generiert. Siehe Schritt 4) 
 
 ---
 
-### Step 5 - Certificate Deployment 
-- Stop elasticsearch: `sudo systemctl stop elasticsearch`
-- Now we deploy the SSL certificates so that the connection to our elastic instance is encrypted.
-- Install certificates:
+### Schritt 5 - Bereitstellung von Zertifikaten 
+- Elasticsearch anhalten an: `sudo systemctl stop elasticsearch`
+- Jetzt installieren wir die SSL-Zertifikate, damit die Verbindung zu unserer Elastic-Instanz verschlüsselt ist.
+- Installiere die Zertifikate:
 
 ```bash
 cd /etc/elasticsearch/certs/
@@ -177,23 +186,24 @@ chown -R elasticsearch:elasticsearch .
 sudo systemctl daemon-reload
 ```
 
-- Open the `elasticsearch.yml` again and add the following fields to your configuration file:
+- Öffne die `elasticsearch.yml` erneut und füge die folgenden Felder hinzu:
 
 ```YAML
 certificate: /etc/elasticsearch/certs/elastic/elastic.crt
 key: /etc/elasticsearch/certs/elastic/elastic.key
 certificate_authorities: /etc/elasticsearch/certs/ca/ca.crt
-``` 
-- After making the changes and saving the file, start elasticsearch: `sudo systemctl start elasticsearch`
-- Visit elasticsearch via the browser again: https://192.168.1.42:9200 (replace with the server's IP-Address)
-- And check the ssl-certificate. It should be deployed now. 
+```
+
+- Nachdem wir die Änderungen vorgenommen und die Datei gespeichert haben, starten wir elasticsearch: `sudo systemctl start elasticsearch`
+- Rufe elasticsearch über den Browser auf: https://192.168.1.42:9200 (durch die IP-Adresse des Servers ersetzen)
+- Und überprüfe das SSL-Zertifikat. Es sollte jetzt bereitgestellt werden.
 
 ---
 
-### Step 6 - Certificate Deployment for Kibana 
-- Now that elasticsearch is up and running, we will repeat this process for kibana.
-- First, stop elasticsearch: `sudo systemctl stop elasticsearch`
-- Then, run the following commands (**replace the IP with the IP of your server**):
+### Schritt 6 - Zertifikatsbereitstellung für Kibana 
+- Jetzt, wo elasticsearch läuft, wiederholen wir diesen Vorgang für kibana.
+- Zuerst stoppen wir elasticsearch: sudo systemctl stop elasticsearch
+- Führe dann die folgenden Befehle aus (**Ersetze die IP durch die IP des Servers**):
  
 ```bash
 cd /etc/kibana
@@ -211,8 +221,8 @@ chown -R kibana:kibana ./
 
 ---
 
-### Step 7 - Kibana Keystore
-- Now we create the kibana keystore for secure authentication between elasticsearch and kibana (SAVE THE TOKEN):
+### Schritt 7 - Kibana Keystore
+- Nun erstellen wir den Kibana-Keystore für die sichere Authentifizierung zwischen elasticsearch und Kibana (SAVE THE TOKEN):
 
 ```bash
 /usr/share/elasticsearch/bin/elasticsearch-service-tokens create elastic/kibana kibana_token
@@ -226,9 +236,9 @@ chown -R kibana:kibana ./
 
 ---
 
-### Step 8 - Configure Kibana 
-- The kibana configuration files are located at: `/etc/kibana/`
-- Add the following fields to the `kibana.yml`
+### Schritt 8 - Konfiguration von Kibana 
+- Die Kibana Konfigurationsdateien sind im folgenden Verzeichnis: `/etc/kibana/`
+- Füge die folgenden Zeilen in die Datei `kibana.yml` ein:
 
 ```YAML
 server.port: 5601
@@ -244,14 +254,13 @@ elasticsearch.hosts: ["https://192.168.1.42:9200"]
 elasticsearch.ssl.certificateAuthorities: [ "/etc/kibana/certs/elastic/ca.crt" ]
 elasticsearch.ssl.verificationMode: full
 ```
-- Start elasticsearch: `sudo systemctl start elasticsearch`
-- Start kibana: `sudo systemctl start kibana`
+- Starte elasticsearch: `sudo systemctl start elasticsearch`
+- Starte kibana: `sudo systemctl start kibana`
 
 ---
 
-### Step 9 - Installing the Fleet Server
-
-- First we need to create new SSL-Certificates for the Fleet-Server:
+### Schritt 9 - Installation des Fleet Servers
+- Zuerst müssen wir neue SSL-Zertifikate für den Fleet-Server erstellen:
 
 ```bash
 cd /etc/
@@ -264,7 +273,7 @@ cd /etc/certs/
 unzip fleet.zip
 ```
 
-- Then, follow the next steps:
+- Dann führen wir die folgenden Schritte aus:
 
 1. Go to the Kibana Dashboard -> Open Menu -> Fleet -> Settings -> Outputs -> Edit
 2. Change Hosts: `https://192.168.0.87:9200`
@@ -274,7 +283,7 @@ unzip fleet.zip
 6. Click on _Add Fleet Server_ -> _Advanced_ -> _Create policy_ -> _Production_ -> Name: fleet -> URL: https://192.168.178.128:8220 -> Add host -> Generate Service Token
 7. We then get a command and we save it
 
-- We then run the following commands:
+- Wir führen dann die folgenden Befehle aus:
 
 ```bash
 cd /root/ 
@@ -282,7 +291,7 @@ touch install.sh
 chmod 755 install.sh 
 ```
 
-- We then open this new file with `nano install.sh` and paste the command: 
+- Wir öffnen diese neue Datei mit `nano install.sh` und kopieren den Installationsbefehl: 
 
 ```bash
 curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.15.3-linux-x86_64.tar.gz
@@ -301,10 +310,10 @@ sudo ./elastic-agent install --url=https://192.168.1.42:8220 \
 
 ---
 
-### Step 10 
-- Now we will install the kibana encrytion keys: `/usr/share/kibana/bin/kibana-encryption-keys`
-- We will get an output in the terminal.
-- We will paste these encryption keys into the `kibana.yml`
+### Schritt 10 
+- Jetzt werden wir die Kibana-Verschlüsselungsschlüssel installieren: `/usr/share/kibana/bin/kibana-encryption-keys`
+- Wir erhalten eine Ausgabe im Terminal.
+- Wir fügen diese Schlüssel in die Datei `kibana.yml`:
 
 ```YAML
 xpack.encryptedSavedObjects.encryptionKey: 26b693e4a6bde560069207dabe49a865
@@ -312,5 +321,5 @@ xpack.reporting.encryptionKey: 409f2b25ec999c70dcc64a441a1436ec
 xpack.security.encryptionKey: 0784cd5158afe89ec71e684972625062
 ```
 
-- Then we restart kibana: `systemctl restart kibana`
-- Both Elasticsearch and Kibana are now ready to use. The installation is complete.
+- Dann starten wir Kibana: `systemctl restart kibana`
+- Sowohl Elasticsearch als auch Kibana sind nun einsatzbereit. Die Installation ist abgeschlossen.
