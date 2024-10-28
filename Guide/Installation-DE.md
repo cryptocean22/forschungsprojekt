@@ -78,7 +78,7 @@ mkdir logs
 - Danach: `systemctl restart cron`
 
 ---
-# 2. Installation of Logstash
+# 2. Installation von Logstash
 ## Schritt 1 - Logstash installieren
 
 ```bash
