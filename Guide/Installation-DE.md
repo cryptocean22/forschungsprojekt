@@ -2,12 +2,18 @@
 - Opnsense ist eine Open-Source Firewall
 - Die Installationsdatei kann über die offizielle [Opnsense-Seite](https://opnsense.org/download/) heruntergeladen werden
 
-## Schritt 1 - 
+## Schritt 1 - Opnsense Implementierung bestimmen 
+- Vor der Installation von Opnsense muss festgelegt werden, wie Opnsense installiert und betrieben werden soll.
+- In dieser Referenzimplementierung verwenden wir eine geeignete [Hardware](https://www.amazon.de/gp/product/B09QM69CJ8/ref=ppx_yo_dt_b_asin_title_o09_s00?ie=UTF8&th=1), um Opnsense zu installieren. 
+
+## Schritt 2 - Opnsense Installations-Stick erstellen
+- Wir können die [offizielle Anleitung](https://docs.opnsense.org/manual/install.html) als Orientierung verwenden
+
 
 ---
 
 # 1. Installation von Wazuh 
-## Step 1 - Vorbereitung
+## Schritt 1 - Vorbereitung
 - Zunächst wird das System aktualisiert und auf den Betrieb von Docker vorbereitet:
 - Folgende Datei wird zunächst bearbeitet: `nano /etc/sysctl.conf`
 - Anschließend wird folgendes hinzugefügt: `vm.max_map_count=262144`
