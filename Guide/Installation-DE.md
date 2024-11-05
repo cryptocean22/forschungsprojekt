@@ -43,6 +43,7 @@ ufw enable
 ufw allow 1514
 ufw allow 1515
 ufw allow 1515
+ufw allow 9200
 ufw allow 55000
 ```
 
