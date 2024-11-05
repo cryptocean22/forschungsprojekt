@@ -27,4 +27,4 @@ Dieses Repository enthält eine Referenzimplementierung von OWELK. Durch das Bef
 ![Agent Details](https://github.com/cryptocean22/forschungsprojekt/blob/main/Guide/pictures/wazuh-agent.jpeg?raw=true)
 
 **OPNsense Dashboard**
-![OPNsense Dashboard](https://github.com/cryptocean22/forschungsprojekt/blob/main/Guide/pictures/dshboard.png?raw=true)
+![OPNsense Dashboard](https://github.com/cryptocean22/forschungsprojekt/blob/main/Guide/pictures/opnsensedashboard.png?raw=true)
