@@ -326,7 +326,7 @@ sudo ./elastic-agent install --url=https://192.168.1.42:8220 \
 
 ---
 
-### Schritt 10 
+### Schritt 10 - Kibana Verschlüsselungsschlüssel
 - Jetzt werden wir die Kibana-Verschlüsselungsschlüssel installieren: `/usr/share/kibana/bin/kibana-encryption-keys`
 - Wir erhalten eine Ausgabe im Terminal.
 - Wir fügen diese Schlüssel in die Datei `kibana.yml`:
