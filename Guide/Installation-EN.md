@@ -9,7 +9,7 @@
 ![Network Topology](https://private-user-images.githubusercontent.com/175680852/383151169-10f2f190-7030-49ce-aca0-3842d5b26399.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzA4MTExODAsIm5iZiI6MTczMDgxMDg4MCwicGF0aCI6Ii8xNzU2ODA4NTIvMzgzMTUxMTY5LTEwZjJmMTkwLTcwMzAtNDljZS1hY2EwLTM4NDJkNWIyNjM5OS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMTA1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTEwNVQxMjQ4MDBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hMzY5OTQ4MjRiNjY1ODM5NTQ3M2M0YjA3ODhhYjEwMjZhNmFkZjhhMzcyNDM4MjgyNzY4MGZhYTU1MmVmN2M3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.IXg5qZhPz1-qhyLPVdwbwEjER7H5ul3vtSIR7sHDd-Y)
 
 
-## Step 2 - Opnsense Implementierung bestimmen 
+## Step 2 - Determine the Opnsense implementation 
 - Before installing Opnsense, we need to determine how we want to install and operate Opnsense.
 - In this reference implementation, we use a suitable [Hardware](https://www.amazon.de/gp/product/B09QM69CJ8/ref=ppx_yo_dt_b_asin_title_o09_s00?ie=UTF8&th=1), um Opnsense zu installieren. 
 
