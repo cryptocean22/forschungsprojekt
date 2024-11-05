@@ -48,3 +48,27 @@ This is the structure `/etc/kibana/`:
 ├── kibana.yml
 └── node.options
 ```
+
+## Directory of wazuh 
+This is the structure `/opt/wazuh-docker/single-node/`
+
+```bash
+wazuh-docker/single-node/
+├── config
+│   ├── certs.yml
+│   ├── wazuh_cluster
+│   │   └── wazuh_manager.conf
+│   ├── wazuh_dashboard
+│   │   ├── opensearch_dashboards.yml
+│   │   └── wazuh.yml
+│   ├── wazuh_indexer
+│   │   ├── internal_users.yml
+│   │   └── wazuh.indexer.yml
+│   └── wazuh_indexer_ssl_certs  [error opening dir]
+├── docker-compose.yml
+├── generate-indexer-certs.yml
+└── README.md
+
+6 directories, 9 file
+
+```
