@@ -11,7 +11,7 @@ This is the official repository for the research project as part of the master's
 
 ---
 
-## Referenzimplementierung 
+## Reference implementation 
 This repository contains a reference implementation of OWELK. By following the steps in the file `Installation.md`
 
 **Agent Security Events**
