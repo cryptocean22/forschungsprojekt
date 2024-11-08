@@ -177,12 +177,12 @@ sudo apt-get update && sudo apt-get install kibana
 
 ```YAML
 cluster.name: ELK
-network.host: 192.168.1.42
+network.host: 192.168.100.10
 http.port: 9200
 ```
 
 - After we have made the changes and saved the file, we start elasticsearch: `sudo systemctl start elasticsearch`.
-- Check the availability of elasticsearch at: https://192.168.1.42:9200 (replace this with the server's IP address)
+- Check the availability of elasticsearch at: https://192.168.100.10:9200 (replace this with the server's IP address)
 - Ignore the warning and continue
 - Enter the elastic user data (it was automatically generated earlier. See step 4) 
 
@@ -213,7 +213,7 @@ certificate_authorities: /etc/elasticsearch/certs/ca/ca.crt
 ```
 
 - After we have made the changes and saved the file, we start elasticsearch: `sudo systemctl start elasticsearch`
-- Access elasticsearch via the browser: `https://192.168.1.42:9200` (replace with the server's IP address)
+- Access elasticsearch via the browser: `https://192.168.100.10:9200` (replace with the server's IP address)
 - And check the SSL certificate. It should now be provided.
 
 ---
@@ -261,13 +261,13 @@ chown -R kibana:kibana ./
 ```YAML
 server.port: 5601
 server.host: "0.0.0.0"
-server.publicBaseUrl: "https://192.168.1.42:5601"
+server.publicBaseUrl: "https://192.168.100.10:5601"
 
 server.ssl.enabled: true
 server.ssl.certificateAuthorities: ["/etc/kibana/certs/elastic/ca.crt"]
 server.ssl.certificate: /etc/kibana/certs/kibana/kibana.crt
 server.ssl.key: /etc/kibana/certs/kibana/kibana.key
-elasticsearch.hosts: ["https://192.168.1.42:9200"]
+elasticsearch.hosts: ["https://192.168.100.10:9200"]
 
 elasticsearch.ssl.certificateAuthorities: [ "/etc/kibana/certs/elastic/ca.crt" ]
 elasticsearch.ssl.verificationMode: full
@@ -315,8 +315,8 @@ chmod 755 install.sh
 curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.15.3-linux-x86_64.tar.gz
 tar xzvf elastic-agent-8.15.3-linux-x86_64.tar.gz
 cd elastic-agent-8.15.3-linux-x86_64
-sudo ./elastic-agent install --url=https://192.168.1.42:8220 \
-  --fleet-server-es=https://192.168.1.42:9200 \
+sudo ./elastic-agent install --url=https://192.168.100.10:8220 \
+  --fleet-server-es=https://192.168.100.10:9200 \
   --fleet-server-service-token=AAEAAWVsYXN0aWMvZmxlZXQtc2VydmVyL3Rva2VuLTE3MjkzMjU4NDM3NTk6S1k3TTg2U2tUNzJWUTdGMGI2bjQ3UQ \
   --fleet-server-policy=fleet-server-policy \
   --certificate-authorities=/etc/certs/elastic/ca.crt \
