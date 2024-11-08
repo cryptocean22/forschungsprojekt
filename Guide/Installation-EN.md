@@ -286,7 +286,7 @@ mkdir certs/
 cd certs/
 mkdir elastic/ 
 cp /etc/elasticsearch/certs/ca/ca.crt elastic/
-/usr/share/elasticsearch/bin/elasticsearch-certutil cert --out /etc/certs/fleet.zip --name fleet --ca-cert /etc/elasticsearch/certs/ca/ca.crt --ca-key /etc/elasticsearch/certs/ca/ca.key --ip 192.168.0.87 --pem
+/usr/share/elasticsearch/bin/elasticsearch-certutil cert --out /etc/certs/fleet.zip --name fleet --ca-cert /etc/elasticsearch/certs/ca/ca.crt --ca-key /etc/elasticsearch/certs/ca/ca.key --ip 192.168.100.10 --pem
 cd /etc/certs/
 unzip fleet.zip
 ```
@@ -294,7 +294,7 @@ unzip fleet.zip
 - Then we perform the following steps:
 
 1. Go to the Kibana Dashboard -> Open Menu -> Fleet -> Settings -> Outputs -> Edit
-2. Change Hosts: `https://192.168.0.87:9200`
+2. Change Hosts: `https://192.168.100.10:9200`
 3. Advanced YAML Configuration: `ssl.certificate_authorities: ["/etc/certs/elastic/ca.crt"]`
 4. Save and apply settings
 5. Go to Agents
