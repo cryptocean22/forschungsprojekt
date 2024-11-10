@@ -298,7 +298,7 @@ unzip fleet.zip
 3. Advanced YAML Configuration: `ssl.certificate_authorities: ["/etc/certs/elastic/ca.crt"]`
 4. Save and apply settings
 5. Go to Agents
-6. Click on _Add Fleet Server_ -> _Advanced_ -> _Create policy_ -> _Production_ -> Name: fleet -> URL: https://192.168.178.128:8220 -> Add host -> Generate Service Token
+6. Click on _Add Fleet Server_ -> _Advanced_ -> _Create policy_ -> _Production_ -> Name: fleet -> URL: https://192.168.100.10:8220 -> Add host -> Generate Service Token
 7. We then get a command and we save it
 
 - We then execute the following commands:
